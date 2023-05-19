@@ -188,5 +188,21 @@ def alpha_beta_pruning(board, depth, alpha, beta, maximizingPlayer):
             if alpha >= beta:
                 break
         return column, value
+    else: # Minimizing player
+                  value = math.inf
+                  column = random.choice(valid_locations)
+                  for col in valid_locations:
+                   row = get_next_open_row(board, col)
+                   b_copy = board.copy()
+                  drop_piece(b_copy, row, col, PLAYER_PIECE)
+                  new_score = alpha_beta_pruning(b_copy, depth-1, alpha, beta, True)[1]
+                  if new_score < value:
+                   value = new_score
+                   column = col
+                  beta = min(beta, value)
+                  if alpha >= beta:
+                      break
+     return column, value
+
 
 
